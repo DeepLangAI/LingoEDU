@@ -417,16 +417,15 @@ Process the input article into sentences, with a data structure below:
 
 ```json
 {
-    "tyoe": string,
-    "infos": [
-        {
-            "txt": string, # text of sentence part
-            "position": dict, # position of sentence part, ok to be an empty dict
-            "tags": list, # tags of sentence part, ok to be an empty list
-            "label": string # label of sentence part, ok to be an empty string
-        },
-        ...
-    ]
+  "type": "string",
+  "infos": [
+    {
+      "txt": "string",      // text of sentence part
+      "position": {},       // position dict, can be empty
+      "tags": [],           // tags list, can be empty
+      "label": ""           // label string, can be empty
+    }
+  ]
 }
 ```
 
@@ -436,15 +435,19 @@ For web pages, we have open-sourced our tool which can convert your web pages as
 
 ```bash
 pip install -e inference
-python inference/infer.py
+python inference/infer.py --data_dir deeplang-ai/StructBench --inference_dir edu_output
 ```
+
+Inference outputs will be generated under directory `edu_output`, each as a list of (level, start_sentence_index, end_sentence_index) tuples.
 
 ### Evaluate
 
 ```bash
 pip install -e evaluation
-python inference/evaluate.py
+python inference/evaluate.py --data_dir deeplang-ai/StructBench --inference_dir edu_output
 ```
+
+TED and DLA score will be printed in the terminal.
 
 ## Citation
 
