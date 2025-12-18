@@ -12,9 +12,25 @@
 
 ## Quick Start
 
-- Refer to `infer.py` for inference usage:
+- EDU input data format
+
+  ```jsonc
+  {
+    "type": "string",
+    "infos": [
+      {
+        "txt": "string",      // text of sentence part
+        "position": {},       // position dict, can be empty
+        "tags": [],           // tags list, can be empty
+        "label": ""           // label string, can be empty
+      }
+    ]
+  }
+  ```
+
+- Refer to `infer.py` for inference usage
 
    ```python
    from edu_core.edu_func import TitleEduFunction
-   # ...see evaluate.py for more code
+   # ...see infer.py for more code
    ```

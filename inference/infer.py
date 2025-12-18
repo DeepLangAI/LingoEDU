@@ -18,7 +18,7 @@ def parse_args() -> argparse.Namespace:
         "--data_dir",
         type=str,
         default="deeplang-ai/StructBench",
-        help="Directory containing input .edu_pred_input.json files",
+        help="Directory containing edu_pred_input",
     )
     parser.add_argument(
         "--inference_dir",

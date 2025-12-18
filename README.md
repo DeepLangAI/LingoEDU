@@ -9,7 +9,7 @@
 
 ## Introduction
 
-This repository contains the code of paper [From Context to EDUs](https://arxiv.org/abs/2512.14244), which introduce the EDU-based Context Compressor, a novel explicit compression framework designed to preserve both global structure and fine-grained details. Empirical results demonstrate that our method achieves state-of-the-art structural prediction accuracy and significantly outperforms frontier LLMs while reducing costs. Furthermore, our structure-aware compression substantially enhances performance across downstream tasks ranging from long-context tasks to complex Deep Search scenarios.
+This repository contains the code of paper [From Context to EDUs](https://arxiv.org/abs/2512.14244), which introduces the EDU-based Context Compressor, a novel explicit compression framework designed to preserve both global structure and fine-grained details. Empirical results demonstrate that our method achieves state-of-the-art structural prediction accuracy and significantly outperforms frontier LLMs while reducing costs. Furthermore, our structure-aware compression substantially enhances performance across downstream tasks ranging from long-context tasks to complex Deep Search scenarios.
 
 ## Performance
 
@@ -478,7 +478,7 @@ pip install -e evaluation
 python inference/evaluate.py --data_dir deeplang-ai/StructBench --inference_dir edu_output
 ```
 
-TED and DLA score will be printed in the terminal.
+TED and DLA scores will be printed in the terminal.
 
 ## Citation
 
