@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "edu_evaluator"
+version = "0.3.8"
+description = "EDU评分器"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "datasets>=4.0.0",
+    "fastparquet>=2024.11.0",
+    "levenshtein>=0.27.1",
+    "loguru>=0.7.3",
+    "pandas>=2.3.0",
+    "pyarrow>=20.0.0",
+    "pydantic-settings>=2.9.1",
+    "zss>=1.2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "build>=0.10.0",
+    "bumpversion>=0.6.0",
+    "twine>=6.1.0",
+]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+packages = { find = { where = ["src"] } }
+
+[[tool.uv.index]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+default = true

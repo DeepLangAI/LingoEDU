@@ -1,0 +1,17 @@
+Model,Accuracy (%),Calibration Error (%)
+DeepSeek-V3,8.6505,50.9689
+DeepSeek-R1,20.4152,47.9239
+Qwen3-235B-thinking,12.8028,61.8062
+Qwen3-235B-no-thinking,8.3045,74.1419
+GPT-4o,7.2664,61.2803
+O3,29.4118,32.0242
+O4-mini,0.0,0.0
+Claude3.5-Sonnet,0.0,0.0
+Claude3.7-think,0.0,0.0
+Gemini2.0-Flash,0.0,0.0
+Gemini2.5-Flash,0.0,0.0
+Qwen2.5-Max,6.2284,69.9827
+GPT5,31.8339,51.1799
+DeepSeekV3.1,9.6886,52.2318
+Gemini-2.5-pro,26.9896,68.7647
+Claude4,21.4533,45.173
