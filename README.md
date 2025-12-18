@@ -413,9 +413,9 @@ To address whether structure-aware compression tangibly enhance performance for 
 
 ### Prepare
 
-Process the input article into sentences, with a data structure below:
+Preprocess the input article into sentences, with a data structure below:
 
-```json
+```jsonc
 {
   "type": "string",
   "infos": [
@@ -429,7 +429,38 @@ Process the input article into sentences, with a data structure below:
 }
 ```
 
-For web pages, we have open-sourced our tool which can convert your web pages as urls directly to inputs of the format above, the repository is: [WCD](https://github.com/DeepLangAI/wcd).
+You may do this via:
+
+- Parse the document and extract text content using
+  [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+  (for web pages),
+  [poppler-utils](https://poppler.freedesktop.org/)
+  (for PDF files),
+  or OCR tools.
+  We recommend keeping paragraphs segmented at this step.
+
+- Split the text into sentences.
+  A simple regex-based splitter is often sufficient;
+  NLP toolkits such as
+  [spaCy](https://spacy.io/)
+  and
+  [Stanza](https://stanfordnlp.github.io/stanza/)
+  are also good options.
+
+  Example regex splitter:
+
+  ```python
+  import re
+
+  raw_sents = re.split(
+      r'(?<=[;:,.!?；：，。！？…])\s*',
+      text.strip()
+  )
+
+  sentences = [s for s in raw_sents if len(s.strip()) > 0]
+  ```
+
+💖 For web pages, we gladly present our wonderful tool WCD(Web Content Distill) which can convert your web pages as urls directly to inputs of the format above, open-sourced at: [WCD](https://github.com/DeepLangAI/wcd).
 
 ### Infer
 
