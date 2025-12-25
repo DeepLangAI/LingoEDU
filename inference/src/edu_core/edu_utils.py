@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import html
 import re
+from typing import Literal
 
 from lxml import etree
 
@@ -9,26 +10,55 @@ from edu_core.edu_type import Sentence
 
 
 def preprocess_article(
-    infos: dict,
+    infos: list[dict],
+    doc_type: Literal["web", "pdf"],
 ) -> list[Sentence]:
     """Article process."""
     if infos is None:
         return None
     filtered_infos = list(
-        filter(lambda x: "img" not in x["tags"] and x["label"] != "O", infos)
+        filter(
+            lambda x: x["label"] not in {"O", "figure", "table", "code", "reference"},
+            infos,
+        )
     )
     sentences: list[Sentence] = []
-    for i, info in enumerate(filtered_infos):
-        txt: str = info["txt"].replace("\n", "").strip()
-        sentence_number = len(sentences)
-        sentences.append(
-            Sentence(
-                text=txt,
-                index=sentence_number,
-                atoms=info["position"].get("atoms", [{"txt": txt, "x": ""}]),
-                web_segment_id=info["web_segment_id"],
-            ),
-        )
+    if doc_type == "web":
+        for i, info in enumerate(filtered_infos):
+            txt: str = info["txt"].replace("\n", "").strip()
+            sentence_number = len(sentences)
+            sentences.append(
+                Sentence(
+                    text=txt,
+                    index=sentence_number,
+                    atoms=info["position"].get("atoms", [{"txt": txt, "x": ""}]),
+                    web_segment_id=info["web_segment_id"],
+                ),
+            )
+    else:
+        position_ids = []
+        paragraph_id = 0
+        for i, info in enumerate(filtered_infos):
+            pdf_positions = info["position"].get("pdf_position")
+            if pdf_positions:
+                position_id = pdf_positions[0].get("position_id", -1)
+            else:
+                position_id = -1
+            if len(position_ids) == 0 or position_id != position_ids[-1]:
+                paragraph_id += 1
+            position_ids.append(position_id)
+
+            txt: str = info["txt"].replace("\n", "").strip()
+            sentence_number = len(sentences)
+            sentences.append(
+                Sentence(
+                    text=txt,
+                    index=sentence_number,
+                    atoms=[{"txt": txt, "x": f"/html/body/p[{paragraph_id}]"}],
+                    web_segment_id=info["web_segment_id"],
+                ),
+            )
+
     return sentences
 
 

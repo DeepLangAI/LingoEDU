@@ -29,8 +29,8 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-async def perform_edu_parse_local(title_func, edu_pred_input):
-    sentences = preprocess_article(edu_pred_input["infos"])
+async def perform_edu_parse_local(title_func, edu_pred_input, doc_type):
+    sentences = preprocess_article(edu_pred_input["infos"], doc_type)
     async with semaphore:
         res = await title_func.do_batch_evaluate(sentences)
     for level, sentence_index, _ in res:
@@ -44,7 +44,11 @@ async def main(dataset):
     title_func = TitleEduFunction(model="deeplang-ai/LingoEDU-4B")
     results = await asyncio.gather(
         *[
-            perform_edu_parse_local(title_func, json.loads(data["edu_pred_input"]))
+            perform_edu_parse_local(
+                title_func,
+                json.loads(data["edu_pred_input"]),
+                data["doc_type"]
+            )
             for data in dataset
         ]
     )
