@@ -223,24 +223,25 @@ def nonum_md_tree_add_num(
 ) -> MdNode | None:
     sample = sample.filter_sentences(lambda s, n, l, pl: l != "EDU_O")
     nonum_md_nodes = nonum_gather_preorder_nodes(nonum_md_tree)
+    if nonum_md_tree.line is None:
+        nonum_md_nodes = nonum_md_nodes[1:]
+        md_nodes: list[MdNode | None] = [
+            MdNode(
+                level=nonum_md_tree.level,
+                span=(-1, -1),
+                line=None,
+                children={},
+            )
+        ]
+    else:
+        md_nodes = []
     index_to_index_span_mapping = get_title_sentences(
         titles=[n.title for n in nonum_md_nodes],
         sentences=[NoNumMdNode.process_text(s) for s in sample.sentences],
         levenshtein_threshold=levenshtein_threshold,
     )
 
-    md_nodes: list[MdNode | None] = []
     for i, nonum_md_node in enumerate(nonum_md_nodes):
-        if nonum_md_node.line is None:
-            md_nodes.append(
-                MdNode(
-                    level=nonum_md_node.level,
-                    span=(-1, -1),
-                    line=None,
-                    children={},
-                )
-            )
-            continue
         if i not in index_to_index_span_mapping:
             md_nodes.append(None)
             continue
@@ -269,6 +270,9 @@ def nonum_md_tree_add_num(
             child = md_nodes[child_index]
             if child is not None:
                 md_node.children[str(child.span[0])] = child
+            else:
+                md_node.children.clear()
+                break
     return md_nodes[0]
 
 

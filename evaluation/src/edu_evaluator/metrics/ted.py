@@ -46,8 +46,8 @@ class TEDMetric:
             pred_tree = convert_to_single_side(pred_tree)
             true_tree = convert_to_single_side(true_tree)
         if do_process_single_children:
-            pred_tree.children = process_single_children(pred_tree.children)
-            true_tree.children = process_single_children(true_tree.children)
+            process_single_children(pred_tree.children)
+            process_single_children(true_tree.children)
         if do_ignore_article_title:
             true_tree.label = None
             pred_tree.label = None

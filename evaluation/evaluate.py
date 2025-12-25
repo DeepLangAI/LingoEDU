@@ -49,7 +49,6 @@ if __name__ == "__main__":
         true_tree = markdown_text_to_rank_tree(
             data["ground_truth"], sample, levenshtein_threshold=0.6
         )
-        true_tree.label = -1
 
         edu_output_path = Path(args.inference_dir).joinpath(
             f"{data['instance_id']}.edu_pred_output.json"

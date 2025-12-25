@@ -98,12 +98,10 @@ def nonum_md_lines_to_tree(lines: list[str]) -> NoNumMdNode | None:
                     level = i
                     break
 
-        if level == 1:
-            assert idx == 0
-
         while len(stack) >= level:
             stack.pop()
-        assert level == len(stack) + 1
+        if level != len(stack) + 1:
+            continue
 
         if level > 1:
             parent_node = stack[-1]

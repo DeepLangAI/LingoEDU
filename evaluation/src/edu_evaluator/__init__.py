@@ -3,6 +3,7 @@ __version__ = "0.3.8"
 from collections import namedtuple
 
 from edu_evaluator.definitions import DocType, NoNumMdNode, Sample, TreeNode
+from edu_evaluator.metrics.ted import process_single_children
 from edu_evaluator.utils.md_line_utils import (
     clean_md_lines_nonum,
     nonum_md_lines_to_tree,
@@ -34,7 +35,8 @@ def get_sample(
     )
     filtered_infos = list(
         filter(
-            lambda x: "img" not in x["tags"] and x["label"] != "O", edu_input["infos"]
+            lambda x: x["label"] not in {"O", "figure", "table", "code", "reference"},
+            edu_input["infos"],
         )
     )
     for i, info in enumerate(filtered_infos):
@@ -49,12 +51,12 @@ def get_sample(
 def keep_titles_only(node: Node, labels: list[str]):
     if not node.children:
         return
-    parsing_labels = []
+    title_children = []
     for child in node.children:
-        keep_titles_only(child, labels)
-        parsing_labels.append(labels[child.label])
-    if not any(map(lambda pl: "title" in pl, parsing_labels)):
-        node.children = []
+        if labels[child.label].startswith("title"):
+            keep_titles_only(child, labels)
+            title_children.append(child)
+    node.children = title_children
 
 
 def edu_pred_output_to_rank_tree(titles: list[Title], sample: Sample) -> Node:
@@ -75,6 +77,7 @@ def edu_pred_output_to_rank_tree(titles: list[Title], sample: Sample) -> Node:
         if title.sentence_index != stack[-1].label:
             stack[-1].children.append(Node(label=title.sentence_index, children=[]))
             stack.append(stack[-1].children[-1])
+    process_single_children(root.children)
     keep_titles_only(root, sample.parsing_labels)
     return root
 
@@ -88,4 +91,6 @@ def markdown_text_to_rank_tree(
         return TreeNode.empty_tree()
     assert isinstance(no_num_md_tree, NoNumMdNode)
     md_tree = nonum_md_tree_add_num(no_num_md_tree, sample, levenshtein_threshold)
+    if md_tree is None:
+        return TreeNode.empty_tree()
     return md_tree_to_rank_zss_tree(md_tree)
