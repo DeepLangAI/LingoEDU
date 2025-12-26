@@ -31,85 +31,85 @@ method achieves SOTA structural accuracy with significantly lower costs.
     <tr>
       <td>GPT-4o</td>
       <td rowspan="12">General LLM*</td>
-      <td>8.53</td>
-      <td>36.29%</td>
+      <td>6.22</td>
+      <td>29.03%</td>
       <td>0.0210</td>
       <td>-</td>
     </tr>
     <tr>
       <td>GPT-4.1</td>
-      <td>9.14</td>
+      <td>6.35</td>
       <td>37.90%</td>
       <td>0.0168</td>
       <td>-</td>
     </tr>
     <tr>
       <td>OpenAI o3</td>
-      <td>8.01</td>
-      <td>35.48%</td>
+      <td>5.51</td>
+      <td>28.63%</td>
       <td>0.0168</td>
       <td>-</td>
     </tr>
     <tr>
       <td>OpenAI o4-mini</td>
-      <td>8.45</td>
-      <td>36.29%</td>
+      <td>5.87</td>
+      <td>32.66%</td>
       <td>0.0092</td>
       <td>-</td>
     </tr>
     <tr>
       <td>Claude-3.7-Sonnet</td>
-      <td>9.98</td>
-      <td>35.48%</td>
+      <td>6.65</td>
+      <td>35.08%</td>
       <td>0.0286</td>
       <td>-</td>
     </tr>
     <tr>
       <td>Claude-4</td>
-      <td><u>7.98</u></td>
-      <td><u>41.53%</u></td>
+      <td><u>5.08</u></td>
+      <td><u>43.15%</u></td>
       <td>0.0286</td>
       <td>-</td>
     </tr>
     <tr>
       <td>Gemini-2.5-flash</td>
-      <td>8.12</td>
-      <td>33.74%</td>
+      <td>5.82</td>
+      <td>27.82%</td>
       <td>0.0040</td>
       <td>-</td>
     </tr>
     <tr>
       <td>Gemini-2.5-pro</td>
-      <td>8.15</td>
-      <td>35.89%</td>
+      <td>5.61</td>
+      <td>32.66%</td>
       <td>0.0162</td>
       <td>-</td>
     </tr>
     <tr>
       <td>DeepSeek-V3</td>
-      <td>9.12</td>
-      <td>34.68%</td>
+      <td>6.32</td>
+      <td>33.47%</td>
       <td>0.0012</td>
       <td>-</td>
     </tr>
     <tr>
       <td>DeepSeek-R1</td>
-      <td>8.44</td>
-      <td>35.08%</td>
+      <td>6.26</td>
+      <td>30.65%</td>
       <td>0.0046</td>
       <td>-</td>
     </tr>
     <tr>
       <td>Qwen3-32B</td>
-      <td>8.55</td>
-      <td>34.01%</td>
+      <td>6.52</td>
+      <td>26.21%</td>
       <td>0.0012</td>
       <td>10.17<sup>†</sup></td>
     </tr>
     <tr>
       <td>Qwen3-235B</td>
-      <td>9.81</td>
-      <td>27.02%</td>
+      <td>7.67</td>
+      <td>19.10%</td>
       <td>0.0012</td>
       <td>-</td>
     </tr>
@@ -131,8 +131,8 @@ method achieves SOTA structural accuracy with significantly lower costs.
     <tr>
       <td><b>Our Method (LingoEDU)</b></td>
       <td><b>Specialized</b></td>
-      <td><b>5.67</b></td>
-      <td><b>46.77%</b></td>
+      <td><b>4.77</b></td>
+      <td><b>49.60%</b></td>
       <td><u>0.0007</u></td>
       <td><b>1.20<sup>†</sup></b></td>
     </tr>
